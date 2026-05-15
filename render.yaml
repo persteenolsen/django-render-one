@@ -3,15 +3,13 @@ services:
     name: mysite
     plan: free
     env: python
-    pythonVersion: 3.12  # Ensure Python 3.12 is used
+    pythonVersion: 3.12  # <--- Important, must be 3.12
 
-    # Install dependencies
     buildCommand: |
       python -m pip install --upgrade pip
       pip install -r requirements.txt
       python manage.py collectstatic --noinput
 
-    # Run migrations before starting the server
     startCommand: |
       python manage.py migrate --noinput
       gunicorn mysite.wsgi:application --workers 4 --bind 0.0.0.0:$PORT
@@ -25,6 +23,3 @@ services:
 
       - key: DATABASE_URL
         sync: false
-
-    # Optional: clear build cache to force fresh Python environment
-    # clearCache: true
