@@ -3,7 +3,7 @@ services:
     name: mysite
     plan: free
     env: python
-    pythonVersion: 3.12  # <--- Important, must be 3.12
+    pythonVersion: 3.12  # Force Python 3.12 to avoid Django incompatibility
 
     buildCommand: |
       python -m pip install --upgrade pip
@@ -23,3 +23,6 @@ services:
 
       - key: DATABASE_URL
         sync: false
+
+    # Optional: clear build cache to force fresh Python environment
+    clearCache: true
