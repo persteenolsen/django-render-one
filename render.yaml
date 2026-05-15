@@ -2,17 +2,19 @@ services:
   - type: web
     name: mysite
     plan: free
-    runtime: python3.12  # Ensure Python 3.12 is used
+    env: python
+    pythonVersion: 3.12  # Ensure Python 3.12 is used
 
     # Install dependencies
     buildCommand: |
       python -m pip install --upgrade pip
       pip install -r requirements.txt
+      python manage.py collectstatic --noinput
 
     # Run migrations before starting the server
     startCommand: |
       python manage.py migrate --noinput
-      gunicorn mysite.asgi:application -k uvicorn.workers.UvicornWorker
+      gunicorn mysite.wsgi:application --workers 4 --bind 0.0.0.0:$PORT
 
     envVars:
       - key: SECRET_KEY
@@ -25,5 +27,4 @@ services:
         sync: false
 
     # Optional: clear build cache to force fresh Python environment
-    # This can also be done from Render dashboard manually.
     # clearCache: true
