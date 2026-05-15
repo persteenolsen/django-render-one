@@ -1,7 +1,7 @@
 Django==5.1.11
+psycopg-binary==3.3.4
 gunicorn
 whitenoise
-psycopg-binary==3.3.4
 dj-database-url
 python-dotenv
 sqlparse
