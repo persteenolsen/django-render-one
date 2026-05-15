@@ -4,7 +4,7 @@
 
 Last updated: 15-05-2026
 
-## Demo at VercelRender
+## Demo at Render
 
 https://django-render-one.onrender.com/
 
