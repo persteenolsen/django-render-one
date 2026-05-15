@@ -2,6 +2,7 @@ services:
   - type: web
     name: django-app
     env: python
+    pythonVersion: 3.11
     region: oregon
     plan: free
     branch: main
@@ -10,16 +11,11 @@ services:
       pip install -r requirements.txt
       python manage.py collectstatic --noinput
       python manage.py migrate
-    startCommand: gunicorn your_project_name.wsgi --log-file -
-    pythonVersion: 3.11
+    startCommand: gunicorn your_project_name.wsgi:application --log-file -
     envVars:
       - key: DJANGO_SETTINGS_MODULE
         value: your_project_name.settings
       - key: DATABASE_URL
-        fromDatabase:
-          name: your-postgres-db
-          property: connectionString
-databases:
-  - name: your-postgres-db
-    plan: free
-    region: oregon
+        value: $DATABASE_URL  # Set this in Render's dashboard
+      - key: SECRET_KEY
+        value: $SECRET_KEY     # Set this in Render's dashboard
