@@ -1,8 +1,8 @@
 services:
   - type: web
-    name: django-app
+    name: mysite-app
     env: python
-    pythonVersion: 3.11
+    pythonVersion: 3.12
     region: oregon
     plan: free
     branch: main
@@ -11,11 +11,13 @@ services:
       pip install -r requirements.txt
       python manage.py collectstatic --noinput
       python manage.py migrate
-    startCommand: gunicorn mysite.wsgi:application --log-file - --log-level debug --workers $WEB_CONCURRENCY
+    startCommand: gunicorn mysite.wsgi:application --log-file - --workers 4
     envVars:
       - key: SECRET_KEY
-        fromDotenv: SECRET_KEY
+        value: 'YOUR_SECRET_KEY'
       - key: DATABASE_URL
-        fromDotenv: DATABASE_URL
+        value: 'YOUR_NEON_DATABASE_URL'
+      - key: DEBUG
+        value: 'False'
       - key: WEB_CONCURRENCY
-        fromDotenv: WEB_CONCURRENCY
+        value: "4"
