@@ -2,14 +2,14 @@ services:
   - type: web
     name: mysite
     plan: free
-    env: python
-    pythonVersion: 3.12  # Force Python 3.12 to avoid Django incompatibility
 
+    # Build command: install dependencies & collect static files
     buildCommand: |
       python -m pip install --upgrade pip
       pip install -r requirements.txt
       python manage.py collectstatic --noinput
 
+    # Start command: run migrations then start server
     startCommand: |
       python manage.py migrate --noinput
       gunicorn mysite.wsgi:application --workers 4 --bind 0.0.0.0:$PORT
@@ -24,5 +24,5 @@ services:
       - key: DATABASE_URL
         sync: false
 
-    # Optional: clear build cache to force fresh Python environment
+    # Clear build cache to ensure fresh Python environment
     clearCache: true
