@@ -1,6 +1,6 @@
 
 
-# Python + Django + PostgreSQL + Models + Render
+# Python + Django + PostgreSQL + Neon + Models + Render
 
 Last updated: 15-05-2026
 
