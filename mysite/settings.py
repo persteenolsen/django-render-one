@@ -38,11 +38,11 @@ WEB_CONCURRENCY=os.getenv('WEB_CONCURRENCY', 4)  # Default to 4 if not set
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
+DEBUG = True
 
 # With DEBUG=False 404 errors will be directed to a default 404 template
 # Not: Django will display a 404.html if you have created one :-)
-DEBUG = False
+#DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1', '.onrender.com']
 
@@ -121,7 +121,7 @@ DATABASES = {
         default=DATABASE_URL,
 
         conn_max_age=600,
-         ssl_require=True
+        ssl_require=True
     )
 }
 
