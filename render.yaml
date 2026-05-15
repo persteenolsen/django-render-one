@@ -12,3 +12,10 @@ services:
       python manage.py collectstatic --noinput
       python manage.py migrate
     startCommand: gunicorn mysite.wsgi:application --log-file - --log-level debug --workers $WEB_CONCURRENCY
+    envVars:
+      - key: SECRET_KEY
+        fromDotenv: SECRET_KEY
+      - key: DATABASE_URL
+        fromDotenv: DATABASE_URL
+      - key: WEB_CONCURRENCY
+        fromDotenv: WEB_CONCURRENCY
