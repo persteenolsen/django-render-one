@@ -1,22 +1,25 @@
 services:
   - type: web
-    name: mysite
-    plan: free
+    name: django-app
     env: python
-    pythonVersion: 3.12.15
-
+    region: oregon
+    plan: free
+    branch: main
     buildCommand: |
-      python -m pip install --upgrade pip
+      pip install --upgrade pip
       pip install -r requirements.txt
-
-    startCommand: |
-      python manage.py migrate --noinput
-      gunicorn mysite.asgi:application -k uvicorn.workers.UvicornWorker
-
+      python manage.py collectstatic --noinput
+      python manage.py migrate
+    startCommand: gunicorn your_project_name.wsgi --log-file -
+    pythonVersion: 3.11
     envVars:
-      - key: SECRET_KEY
-        generateValue: true
-      - key: WEB_CONCURRENCY
-        value: 4
+      - key: DJANGO_SETTINGS_MODULE
+        value: your_project_name.settings
       - key: DATABASE_URL
-        sync: false
+        fromDatabase:
+          name: your-postgres-db
+          property: connectionString
+databases:
+  - name: your-postgres-db
+    plan: free
+    region: oregon
