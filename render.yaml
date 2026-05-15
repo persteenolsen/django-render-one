@@ -2,27 +2,21 @@ services:
   - type: web
     name: mysite
     plan: free
+    env: python
+    pythonVersion: 3.12.15
 
-    # Build command: install dependencies & collect static files
     buildCommand: |
       python -m pip install --upgrade pip
       pip install -r requirements.txt
-      python manage.py collectstatic --noinput
 
-    # Start command: run migrations then start server
     startCommand: |
       python manage.py migrate --noinput
-      gunicorn mysite.wsgi:application --workers 4 --bind 0.0.0.0:$PORT
+      gunicorn mysite.asgi:application -k uvicorn.workers.UvicornWorker
 
     envVars:
       - key: SECRET_KEY
         generateValue: true
-
       - key: WEB_CONCURRENCY
         value: 4
-
       - key: DATABASE_URL
         sync: false
-
-    # Clear build cache to ensure fresh Python environment
-    clearCache: true
