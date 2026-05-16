@@ -8,6 +8,10 @@ Last updated: 16-05-2026
 
 https://django-render-one.onrender.com
 
+## How to avoid conflict with Python and Django versions
+
+At Render I use the PYTHON_VERSION environment variable to tell Render to use Python version 3.11.11. Locally I am using Python 3.12.1
+
 ## Installing
 
 - Download Python from the official website [Python](https://python.org/)
