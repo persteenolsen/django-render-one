@@ -2,11 +2,11 @@
 
 # Python + Django + Postgres + Neon + Models + Render
 
-Last updated: 15-05-2026
+Last updated: 16-05-2026
 
 ## Demo at Render
 
-https://django-render-one.onrender.com/
+https://django-render-one.onrender.com
 
 ## Installing
 
